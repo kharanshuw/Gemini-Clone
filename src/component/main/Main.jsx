@@ -2,12 +2,20 @@ import React from 'react'
 
 import { assets } from "../../assets/assets.js"
 
+import { useContext } from "react";
+
+import { Context } from '../../context/Context.jsx';
+
 import './Main.css'
 
 
 function Main() {
 
-    console.log(assets.user_icon);
+    let context = useContext(Context);
+
+
+
+
 
     return (
         <div className='main w-full border-0'>
@@ -25,84 +33,80 @@ function Main() {
 
 
             <div className='main-container'>
-                <div className='h-80'>
-
-                </div>
-
-                <div className='greet'>
-
-                    <p>
-                        <span className='text-center capitalize'>hello, dev.</span>
-
-                    </p>
-
-                    <p className=' capitalize'>
-                        how can i help you today?
-                    </p>
-
-                </div>
 
 
-                {/* <div className='cards'>
-                <div className='card'>
+                {
+                    !context.showResult ?
+                        <>
+                            <div className='greet'>
 
-                    <p>
-                        suggest
-                    </p>
-                    <img src={assets.compass_icon} alt="" />
+                                <p>
+                                    <span className='text-center capitalize'>hello, dev.</span>
 
-                </div>
+                                </p>
 
+                                <p className=' capitalize '>
+                                    how can i help you today?
+                                </p>
 
-
-
-                <div className='card'>
-
-                    <p>
-                        suggest
-                    </p>
-                    <img src={assets.bulb_icon} alt="" />
-
-                </div>
+                            </div>
+                        </>
+                        :
 
 
+                        <div className='result'>
+                            <div className='result-tiles '>
+                                <img src={assets.user_icon} alt="" />
+                                <p className='capitalize font-bold'>{context.recentPromt}</p>
+                            </div>
 
 
+                            <div className='result-data font-bold'>
+                                <img src={assets.gemini_icon} alt="" />
 
-                <div className='card'>
+                                {
+                                    context.
+                                }
+                                <p >
+                                    {context.resultData}                                     
+                                </p>
+                            </div>
 
-                    <p>
-                        suggest
-                    </p>
-                    <img src={assets.message_icon} alt="" />
 
-                </div>
+                        </div>
+
+                }
 
 
 
 
 
-                <div className='card'>
 
-                    <p>
-                        suggest
-                    </p>
-                    <img src={assets.code_icon} alt="" />
 
-                </div>
-
-            </div> */}
 
                 <div className='main-button'>
 
                     <div className='serch-box'>
-                        <input type="text" placeholder='Enter a Promt Here' />
+                        <input
+
+                            value={context.input}
+
+                            onChange={(e) => context.setInput(e.target.value)}
+
+                            type="text"
+
+                            placeholder='Enter a Promt Here' />
 
 
                         <div className='icons-container'>
                             <img src={assets.gallery_icon} alt="" />
                             <img src={assets.mic_icon} alt="" />
-                            <img src={assets.send_icon} alt="" />
+                            <img
+                                onClick={
+                                    () =>
+                                        context.onSent()
+                                }
+                                src={assets.send_icon} alt="" />
                         </div>
                     </div>
 

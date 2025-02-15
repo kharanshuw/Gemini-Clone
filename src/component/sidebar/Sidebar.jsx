@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import './Sidebar.css';
-import { assets } from "../../assets/assets.js"
+import { assets } from "../../assets/assets.js";
 
 const Sidebar = () => {
 
