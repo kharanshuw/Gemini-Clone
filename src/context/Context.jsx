@@ -21,12 +21,32 @@ export const Context = createContext();
 
 const ContextProvider = (props) => {
 
-    const [input, setInput] = useState("pratik");
+    const [input, setInput] = useState("");
     const [recentPromt, setRecentPromt] = useState("");
     const [prevHistory, setPrevHistory] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoding] = useState(false);
     const [resultData, setResultData] = useState("");
+
+
+    const dalayPara = (index, nextWord) => {
+
+    }
+
+
+    let formatText = (text) => {
+        // Replace ** with <b> tags
+        let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+
+        // Replace * with <br> tags
+        formattedText = formattedText.replace(/\*/g, '<br>');
+
+        // Replace `\`\`\`... \`\`\`` with <pre><code>...</code></pre>
+        formattedText = formattedText.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+
+        return formattedText;
+
+    }
 
 
     const onSent = async () => {
@@ -43,8 +63,21 @@ const ContextProvider = (props) => {
 
         const response = await run(input);
 
+        // let responseArray = response.split("**");
+
+        // let newResponse = "";
+
+        // for (let i = 0; i < responseArray.length; i++) {
+        //     if (i === 0 || i % 2 !== 1) {
+        //         newResponse += responseArray[i];
+        //     } else {
+        //         newResponse += "<b>" + responseArray[i] + "</b>" + "</br>";
+        //     }
+        // }
+
+        // let newResponse2 = newResponse.split("*").join("</br>");
         setLoding(false);
-        setResultData(response);
+        setResultData(formatText(response));
         setInput("");
     }
 

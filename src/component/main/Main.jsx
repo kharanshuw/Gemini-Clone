@@ -65,11 +65,19 @@ function Main() {
                                 <img src={assets.gemini_icon} alt="" />
 
                                 {
-                                    context.
+                                    context.loading
+                                        ?
+                                        <div className='loader'>
+                                            <hr />
+                                            <hr />
+                                            <hr />
+                                        </div>
+                                        :
+                                        <p className='font-light leading-7 '  dangerouslySetInnerHTML={{ __html: context.resultData }}>
+                                            
+                                        </p>
                                 }
-                                <p >
-                                    {context.resultData}                                     
-                                </p>
+
                             </div>
 
 
