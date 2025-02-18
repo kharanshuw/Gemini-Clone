@@ -3,19 +3,6 @@ import run from "../config/gemini";
 
 
 
-const defaultValue = {
-    prevHistory: [],
-    setPrevHistory: () => { },
-    onSent: () => { },
-    setRecentPromt: () => { },
-    recentPromt: "",
-    showResult: false,
-    loading: false,
-    resultData: "",
-    input: "",
-    setInput: () => { },
-};
-
 export const Context = createContext();
 
 
@@ -31,6 +18,16 @@ const ContextProvider = (props) => {
 
     const dalayPara = (index, nextWord) => {
 
+        setTimeout(() => {
+            setResultData(prev => prev + nextWord);
+        }, 75 * index);
+
+    }
+
+
+    const newChat = () => {
+        setLoding(false);
+        setShowResult(false);
     }
 
 
@@ -49,7 +46,7 @@ const ContextProvider = (props) => {
     }
 
 
-    const onSent = async () => {
+    const onSent = async (prompt) => {
         console.log("onsent function is in execution ");
 
         setResultData("");
@@ -58,26 +55,32 @@ const ContextProvider = (props) => {
 
         setShowResult(true);
 
-        setRecentPromt(input);
+        let result = "";
 
+        if (prompt !== undefined) {
+            result = await run(prompt);
+            setRecentPromt(prompt);
+        }
+        else {
 
-        const response = await run(input);
+            setPrevHistory(prevHistory => [...prevHistory, input]);
+            setRecentPromt(input);
+            result = await run(input);
+        }
 
-        // let responseArray = response.split("**");
-
-        // let newResponse = "";
-
-        // for (let i = 0; i < responseArray.length; i++) {
-        //     if (i === 0 || i % 2 !== 1) {
-        //         newResponse += responseArray[i];
-        //     } else {
-        //         newResponse += "<b>" + responseArray[i] + "</b>" + "</br>";
-        //     }
-        // }
-
-        // let newResponse2 = newResponse.split("*").join("</br>");
         setLoding(false);
-        setResultData(formatText(response));
+
+        let newResponse = formatText(result);
+
+        let newResponseArray = newResponse.split(" ");
+
+        for (let i = 0; i < newResponseArray.length; i++) {
+            const nextWord = newResponseArray[i];
+
+            dalayPara(i, nextWord + " ");
+        }
+
+        //setResultData();
         setInput("");
     }
 
@@ -96,6 +99,7 @@ const ContextProvider = (props) => {
         resultData,
         input,
         setInput,
+        newChat
     };
 
 

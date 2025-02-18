@@ -10,7 +10,7 @@ function App() {
 
   return (
 
-    <div className='flex flex-row h-dvh '>
+    <div className=' container-div'>
       
       <ContextProvider>
         <Sidebar></Sidebar>

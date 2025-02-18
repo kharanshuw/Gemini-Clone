@@ -61,7 +61,7 @@ function Main() {
                             </div>
 
 
-                            <div className='result-data font-bold'>
+                            <div className='result-data '>
                                 <img src={assets.gemini_icon} alt="" />
 
                                 {
@@ -73,7 +73,7 @@ function Main() {
                                             <hr />
                                         </div>
                                         :
-                                        <p className='font-light leading-7 '  dangerouslySetInnerHTML={{ __html: context.resultData }}>
+                                        <p className=''  dangerouslySetInnerHTML={{ __html: context.resultData }}>
                                             
                                         </p>
                                 }
