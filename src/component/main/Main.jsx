@@ -18,6 +18,8 @@ function Main() {
 
 
     return (
+
+
         <div className='main w-full border-0'>
 
             <div className='nav  '>
@@ -34,7 +36,17 @@ function Main() {
 
             <div className='main-container'>
 
+                {/* 
+                Conditional Rendering: This block checks if context.showResult is false or true:
 
+                Greeting: If context.showResult is false, it displays a greeting message.
+
+                Result: If context.showResult is true, it displays the result section.
+
+                Result Tiles: Shows the user's recent prompt and an image.
+
+                Result Data: Shows either a loading spinner or the result data formatted as HTML.
+                */}
                 {
                     !context.showResult ?
                         <>
@@ -64,6 +76,8 @@ function Main() {
                             <div className='result-data '>
                                 <img src={assets.gemini_icon} alt="" />
 
+
+
                                 {
                                     context.loading
                                         ?
@@ -73,8 +87,8 @@ function Main() {
                                             <hr />
                                         </div>
                                         :
-                                        <p className=''  dangerouslySetInnerHTML={{ __html: context.resultData }}>
-                                            
+                                        <p className='' dangerouslySetInnerHTML={{ __html: context.resultData }}>
+
                                         </p>
                                 }
 
@@ -94,6 +108,15 @@ function Main() {
 
                 <div className='main-button'>
 
+                    {/* 
+                    Search Box: Contains an input field for entering prompts and icons for gallery, microphone, and send actions.
+
+                    Input Field: The value is controlled by context.input, and updates with the context.setInput function on change.
+
+                    Icons Container: Includes images for gallery, microphone, and send functionalities.
+
+                    Send Icon: Triggers context.onSent function when clicked.
+                    */}
                     <div className='serch-box'>
                         <input
 

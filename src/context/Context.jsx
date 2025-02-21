@@ -16,6 +16,12 @@ const ContextProvider = (props) => {
     const [resultData, setResultData] = useState("");
 
 
+    /**
+     * dalayPara Function: This function introduces a delay before appending the nextWord to the resultData. 
+     * The delay is determined by the index multiplied by 75 milliseconds.
+     * @param {*} index 
+     * @param {*} nextWord 
+     */
     const dalayPara = (index, nextWord) => {
 
         setTimeout(() => {
@@ -25,12 +31,21 @@ const ContextProvider = (props) => {
     }
 
 
+    /**
+     * newChat Function: This function resets the loading and result visibility states to start a new chat.
+     */
     const newChat = () => {
         setLoding(false);
         setShowResult(false);
     }
 
 
+    /**
+     * formatText Function: This function formats the input text by replacing specific patterns with HTML tags to create bold text,
+     * line breaks, and code blocks.
+     * @param {*} text 
+     * @returns 
+     */
     let formatText = (text) => {
         // Replace ** with <b> tags
         let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
@@ -46,6 +61,20 @@ const ContextProvider = (props) => {
     }
 
 
+    /**
+       onSent Function: This function handles sending a prompt or input to the run function and processing the result. It:
+
+        Clears resultData and sets loading and result visibility states.
+
+        Calls the run function with the prompt or input.
+
+        Formats the result using formatText.
+
+        Splits the formatted result into words and appends them to resultData with a delay using dalayPara.
+
+        Resets the input state.
+     *
+     */
     const onSent = async (prompt) => {
         console.log("onsent function is in execution ");
 
@@ -84,9 +113,10 @@ const ContextProvider = (props) => {
         setInput("");
     }
 
-
-
-
+    /**
+     * contextValue Object: This object contains all the state variables and functions 
+     * that will be provided to child components via the context.
+     */
     const contextValue = {
         // Define your context values here
         prevHistory,
